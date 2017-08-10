@@ -9,20 +9,20 @@ node {
 
     }
     
-    //stage('Insall Dependencies')
-    //{        sh 'pip install -r requirements.txt'}
-    
-    
-    
+   
     stage('Update and build')
     { 
      // sh 'usermod -aG docker muskanstha'
+     
         sh 'docker stop codechan || true && docker rm codechan || true'
         sh 'docker login --username=muskanstha --password=muskanstha'
+        
      // sh 'docker rmi muskanstha/codechan'
      // sh 'git pull origin master'
+     
         sh 'docker build -t muskanstha/codechan .'
      // sh 'docker tag codechan muskanstha/codechan:latest'
+     
         sh 'docker run -p 6898:5000 -d --name codechan muskanstha/codechan'
         
         
