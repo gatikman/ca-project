@@ -46,7 +46,8 @@ node {
   }
 }
 def runIntegrationTests(frontendIp) {
-    def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '' ${frontendIp} 2>&1", returnStdout: true).trim()
+     def resp = sh(script: "curl -s -o /dev/null -w "%{http_code}" http://52.59.6.52:6898"  
+     //def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '' ${frontendIp} 2>&1", returnStdout: true).trim()
     if (resp != "200") {
         error "could not reach new service"
     }
