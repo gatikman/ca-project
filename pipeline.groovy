@@ -1,6 +1,6 @@
 node {
   
-  //def frontIp = 'http://52.59.6.52:6898'
+  def frontendIp = 'http://52.59.6.52:6898'
   
   stage('Preparation') 
   {
@@ -14,10 +14,10 @@ node {
   
    stage("Testing") {
         //def dtabOverride = "l5d-dtab: /host/world => /tmp/${newVersion}"
-        //runIntegrationTests(frontendIp, dtabOverride)
+        runIntegrationTests(frontendIp)
         try {
             input(
-                message: "Integration tests successful!\nYou can reach the service with:\ncurl -H \'${dtabOverride}\' http://52.59.6.52:6898",
+                message: "Integration tests successful!\nYou can reach the service with:\ncurl -H \'${dtabOverride}\' ${frontendIp}",
                 ok: "OK, done with manual testing"
             )
         } catch(err) {
@@ -45,8 +45,8 @@ node {
      //sh 'docker run -p 6898:5000 -d code-chan'
   }
 }
-def runIntegrationTests(frontendIp, dtabOverride) {
-    def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '${dtabOverride}' ${frontendIp} 2>&1", returnStdout: true).trim()
+def runIntegrationTests(frontendIp) {
+    def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '' ${frontendIp} 2>&1", returnStdout: true).trim()
     if (resp != "200") {
         error "could not reach new service"
     }
