@@ -26,3 +26,9 @@ node {
      //sh 'docker run -p 6898:5000 -d code-chan'
   }
 }
+def runIntegrationTests(frontendIp, dtabOverride) {
+    def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '${dtabOverride}' ${frontendIp} 2>&1", returnStdout: true).trim()
+    if (resp != "200") {
+        error "could not reach new service"
+    }
+}
