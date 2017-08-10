@@ -6,7 +6,7 @@ node {
   stage('Test')
   {
      sh 'echo "Build"'
-     sh 'if (curl -s -o /dev/null -w "%{http_code}" http://52.59.6.52:6898'){ == 200}else{echo 'error'}
+     //sh 'if (curl -s -o /dev/null -w "%{http_code}" http://52.59.6.52:6898'){ == 200}else{echo 'error'}
   } 
   stage('Build')
   {
@@ -25,12 +25,4 @@ node {
      //sh 'docker build -t code-chan .'
      //sh 'docker run -p 6898:5000 -d code-chan'
   }
-}
-
-
-def runIntegrationTests(frontendIp, dtabOverride) {
-    def resp = sh(script: "curl -sL -w '%{http_code}' -o /dev/null  -H '${dtabOverride}' ${frontendIp} 2>&1", returnStdout: true).trim()
-    if (resp != "200") {
-        error "could not reach new service"
-    }
 }
