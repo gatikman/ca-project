@@ -3,26 +3,11 @@ node {
   {
     git credentialsId: '223401e7-ef79-4ca4-9e74-628387fd52d2', url: 'https://github.com/gatikman/ca-project'
   }
-  /* stage('Test')
+  stage('Test')
   {
      sh 'echo "Build"'
      sh 'if (curl -s -o /dev/null -w "%{http_code}" http://52.59.6.52:6898'){ == 200}else{echo 'error'}
-  }
-  */
-   stage("Test") {
-        def dtabOverride = """
-        runIntegrationTests(frontendIp, dtabOverride)
-        try {
-            input(
-                message: "Integration tests successful!\nYou can reach the service with:\ncurl -H \'${dtabOverride}\' ${frontendIp}",
-                ok: "OK, done with manual testing"
-            )
-        } catch(err) {
-            revert(originalDst, newVersion)
-            throw err
-        }
-  }  
-  
+  } 
   stage('Build')
   {
      sh 'docker build -t code-chan .'
