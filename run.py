@@ -3,4 +3,4 @@
 from app import app
 app.run(host='0.0.0.0',debug=True)
 #test docker jenkins
-#gatikman
+#test gatikman
