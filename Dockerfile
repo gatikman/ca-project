@@ -16,7 +16,8 @@ COPY . /usr/src/app/
 EXPOSE 5000
 
 # run the application
-CMD ["python", "/usr/src/app/run.py"]
+#changed to run tests
+CMD ["python", "/usr/src/app/tests.py"]
 
 
 
